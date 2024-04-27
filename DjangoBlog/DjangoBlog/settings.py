@@ -51,15 +51,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'DjangoBlog.urls'
+ROOT_URLCONF = "DjangoBlog.urls"
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',
-            BASE_DIR / 'blog' / 'templates',
-            BASE_DIR / 'account' / 'templates',
+            BASE_DIR / 'DjangoBlog/templates',
+            BASE_DIR / 'blog/templates',
+            BASE_DIR / 'account/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -125,6 +126,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
+    BASE_DIR / 'DjangoBlog/statics',
     BASE_DIR / 'blog' / 'static',
     BASE_DIR / 'account' / 'static',
 ]

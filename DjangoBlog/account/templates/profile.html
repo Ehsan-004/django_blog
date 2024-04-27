@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>username: {{ user.username }}</p>
+    <p>   email: {{ user.email }}</p>
+    <a href="{% url 'account:logout' %}">logout</a>
+</body>
+</html>
