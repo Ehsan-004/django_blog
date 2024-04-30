@@ -75,42 +75,18 @@
             <main class="col-md-8">
                 <article class="post post-1">
                     <header class="entry-header">
-                        <h1 class="entry-title">Django blog development introductory tutorial: Preface</h1>
+                        <h1 class="entry-title">{{ title }}</h1>
                         <div class="entry-meta">
-                            <span class="post-category"><a href="#">Django blog tutorial</a></span>
+                            <span class="post-category"><a href="#">{{ category }}</a></span>
                             <span class="post-date"><a href="#"><time class="entry-date"
-                                                                      datetime="2012-11-09T23:15:57+00:00">2017年5月11日</time></a></span>
-                            <span class="post-author"><a href="#">Dreamers</a></span>
+                                                                      datetime="2012-11-09T23:15:57+00:00">{{ date }}</time></a></span>
+                            <span class="post-author"><a href="#">{{ author }}</a></span>
                             <span class="comments-link"><a href="#">4 comments</a></span>
                             <span class="views-count"><a href="#">588 read</a></span>
                         </div>
                     </header>
                     <div class="entry-content clearfix">
-                        <p>Django is an open source web framework written in Python that can be used to quickly build a high-performance website.</p>
-                        <blockquote><p>Django makes it easier to build better Web apps more quickly and with less
-                            code.</p>
-                            <p>Django allows you to build better web applications faster, with less code, and easier. </p>
-                        </blockquote>
-                        <p>This tutorial will help you quickly develop your own blog website using Django. </p>
-                         <h2>Tutorial Features</h2>
-                         <p>Free, Chinese, zero-based, complete project, based on the latest version of Django 1.10 and Python 3.5. </p>
-                         <p>Take you step by step to develop your own blog website from scratch, helping you master Django development skills as quickly as possible. </p>
-                         <h2>Who is suitable for this tutorial</h2>
-                         <p><strong>This tutorial is mainly for newcomers to Django who have zero basic knowledge. </strong></p>
-                         <p>You only need a little basic knowledge of the Python language to read this tutorial smoothly. </p>
-                         <p>If you already have some experience in Django development, you can also learn more Django development skills from this tutorial. </p>
-                         <h2>Online preview</h2>
-                        <p>click to preview: <a href=''>Django Blog Demo</a></p>
-                        <p><img src='' alt=''/></p>
-                        <h2>Resource list</h2>
-                        <p>The complete code of the project is hosted at GitHub：<a href=''>Django Blog Tutorial</a></p>
-                        <p>The blog front-end template is hosted on GitHub：<a href=''>blog template</a></p>
-                        <h2>Get help</h2>
-                         <p>If you encounter problems during project development, get help immediately. </p>
-                         <p>Django learning group QQ group, scan the QR code below to join. </p>
-                        <p><img src='' alt=''/></p>
-                        <p>Or you can email a detailed description of the problem to <a href='mailto:djangostudyteam@163.com' target='_blank'>djangostudyteam@163.com</a>，一般会在
-                            Reply within 24 hours.</p>
+                        {{ content.html|safe }}
                     </div>
                 </article>
                 <section class="comment-area" id="comment-area">
@@ -138,36 +114,19 @@
                         </div>    <!-- row -->
                     </form>
                     <div class="comment-list-panel">
-                        <h3>Comments list, <span>4</span> comments in total</h3>
+                        <h3>Comments , <span>{{ comments_num }}</span> comments in total</h3>
                         <ul class="comment-list list-unstyled">
+                            <!---------------------------------comments--------------------------------->
+                            {% for comment in comment_list %}
                             <li class="comment-item">
-                                <span class="nickname">Dreamers</span>
-                                <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月12日 14:56</time>
+                                <span class="nickname">{{ comment.author }}</span>
+                                <!-- time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月12日 14:56</time>-->
                                 <div class="text">
-                                    The views of the article are reasonable and in line with human nature. This is what is truly written to express the views, not to cater to the fans of a certain famous person. I think if Qiong Yao was an ex-wife who was poached by an unknown woman after giving birth to three children, I don’t believe anyone would say that the woman was pursuing true love, and that women who sympathized with Qiong Yao and scolded her mistress were weak.
+                                    {{ comment.content }}
                                 </div>
                             </li>
-                            <li class="comment-item">
-                                <span class="nickname">zmrenwu</span>
-                                <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月11日 23:56</time>
-                                <div class="text">
-                                    Instinct may break through the pattern, but the pattern sometimes constrains the instinct.
-                                </div>
-                            </li>
-                            <li class="comment-item">
-                                <span class="nickname">batman</span>
-                                <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月9日 8:56</time>
-                                <div class="text">
-                                    In fact, the truth generally belongs to the silent majority. Those extreme views can only attract those who are equally extreme. A few years ago, Qiong Yao accused her mother of plagiarism, and everyone was very happy. This shows that the audience is just talking about the matter, and is not biased against Qiong Yao.
-                                </div>
-                            </li>
-                            <li class="comment-item">
-                                <span class="nickname">Yangtze River No. 7</span>
-                                <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">February 12, 2017 12:56</time>
-                                <div class="text">
-                                    I like the point of view! It's just that everything was clear at first, but here comes the mistress and the mistress, making it a mess and confusing. It's really troublesome.
-                                </div>
-                            </li>
+                            {% endfor %}
+                            <!-----------------------------end of comments----------------------------->
                         </ul>
                     </div>
                 </section>

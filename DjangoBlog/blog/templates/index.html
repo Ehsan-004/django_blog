@@ -74,31 +74,31 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8">
-
+            <!-----------------------articles-------------------------->
                 {% for article in article_data %}
                 <article class="post post-1">
                     <header class="entry-header">
                         <h1 class="entry-title">
-                            <a href="single.html">{{ article.title }}</a>
+                            <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
                         </h1>
                         <div class="entry-meta">
-                            <span class="post-category"><a href="#">{{ article.author }}</a></span>
-                            <span class="post-date"><a href="#"><time class="entry-date"
-                                                                      datetime="{{ article.date }}">{{ article.date }}</time></a></span>
-                            <span class="post-author"><a href="#">{{ article.auther }}</a></span>
-                            <span class="comments-link"><a href="#">{{ article.comment }} comments</a></span>
-                            <span class="views-count"><a href="#">588 reads</a></span>
+                            <span style="color: #0f140f" class="post-category">{{ article.author }}</span>
+                            <span class="post-date"><time style="color: #0f140f" class="entry-date"
+                                                          datetime="{{ article.date }}">{{ article.date }}</time></span>
+                            <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
+                            <!--<span style="color: #0f140f" class="comments-link"> comments</span>-->
+                                <!--<span class="views-count"><a href="#">588 reads</a></span> -->
                         </div>
                     </header>
                     <div class="entry-content clearfix">
                         <p>{{ article.summary }} ...</p>
                         <div class="read-more cl-effect-14">
-                            <a href="#" class="more-link">continue reading <span class="meta-nav">→</span></a>
+                            <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
                         </div>
                     </div>
                 </article>
                 {% endfor %}
-
+            <!-----------------------end of articles-------------------------->
                 <!-- 简单分页效果
                 <div class="pagination-simple">
                     <a href="#">上一页</a>
@@ -108,6 +108,7 @@
                 -->
                 <div class="pagination">
                     <ul>
+                        <!--
                         <li><a href="">1</a></li>
                         <li><a href="">...</a></li>
                         <li><a href="">4</a></li>
@@ -117,6 +118,7 @@
                         <li><a href="">8</a></li>
                         <li><a href="">...</a></li>
                         <li><a href="">11</a></li>
+                        -->
                     </ul>
                 </div>
             </main>

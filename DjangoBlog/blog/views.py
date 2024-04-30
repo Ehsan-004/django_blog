@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Post
+from django.shortcuts import render, reverse, redirect
+from .models import Post, Comments
 
 
 def index(req):
@@ -19,8 +19,32 @@ def index(req):
         return render(req, 'index.html', context)
 
 
-def single_post(req):
-    return render(req, 'single.html')
+def single_post(req, name: str):
+    articles = Post.objects.all()  # all articles are here
+    for article in articles:
+        if article.title == name:
+            comment_list = []
+            comments = Comments.objects.filter(post=article)  # get its comments
+            comments_num = len(comments)
+            for comment in comments:
+                comment_list.append({
+                    'content': comment.content,
+                    'author': comment.author,
+                })
+
+            context = {
+                'title': article.title,
+                'summary': article.summary,
+                'author': article.author,
+                'date': article.date,
+                'content': article.content,
+                'comments': article.comments,
+                'category': article.category,
+                'comment_list': comment_list,
+                'comments_num': comments_num,
+            }
+            return render(req, 'single.html', context)
+    return render(req, redirect(reverse('blog:all_posts')))
 
 
 def all_posts(req):
