@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+# from django.template.utils.EngineHandler import templates
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'account'
+    'account',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +63,7 @@ TEMPLATES = [
             BASE_DIR / 'DjangoBlog/templates',
             BASE_DIR / 'blog/templates',
             BASE_DIR / 'account/templates',
+            BASE_DIR / 'contact/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -122,14 +125,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
     BASE_DIR / 'DjangoBlog/statics',
-    BASE_DIR / 'blog' / 'static',
-    BASE_DIR / 'account' / 'static',
+    BASE_DIR / 'blog/statics',
+    BASE_DIR / 'account/statics',
+    BASE_DIR / 'contact/statics',
 ]
+
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -18,7 +18,7 @@ def register_(req):
         email = req.POST.get('email', False)
 
         if False in [username, password, email]:
-            return HttpResponse("there is an error")
+            return render(req, 'error_manager.html', {'text_error': "you have entered something wrong!"})
         else:
             user = User.objects.create_user(username=username, password=password, email=email)
             return redirect('account:login_page')
@@ -30,11 +30,17 @@ def login_(req):
         password = req.POST.get('password', False)
         email = req.POST.get('email', False)
         if False in [username, password, email]:
-            return HttpResponse("there is an error")
+            return render(req, 'error_manager.html', {'text_error': "your name or email or password is wrong"})
         else:
             user = authenticate(username=username, password=password, email=email)
-            login(req, user)
-            return redirect(reverse('home'))
+            if User.objects.filter(username=username, email=email).exists():
+                try:
+                    login(req, user)
+                    return redirect(reverse('home'))
+                except AttributeError:
+                    return render(req, 'error_manager.html', {'text_error': "your password is wrong"})
+            else:
+                return render(req, 'error_manager.html', {'text_error': "we couldn't find you! please try again"})
 
 
 def logout_(req):

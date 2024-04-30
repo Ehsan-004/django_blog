@@ -42,9 +42,9 @@
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   								<ul class="nav navbar-nav navbar-right">
     								<li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
-    								<li class="cl-effect-11"><a href="full-width.html" data-hover="Blog">Blog</a></li>
-    								<li class="cl-effect-11"><a href="about.html" data-hover="About">About</a></li>
-    								<li class="cl-effect-11"><a href="contact.html" data-hover="Contact">Contact</a></li>
+    								<li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
+    								<li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
+    								<li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
   								</ul>
 							</div><!-- /.navbar-collapse -->
 						</nav>
@@ -66,7 +66,7 @@
 			<div class="container">
 				<div class="row">
 					<main class="col-md-12">
-						<h1 class="page-title">Login</h1>
+						<h1 class="page-title">signup</h1>
 						<article class="post">
 							<div class="entry-content clearfix">
 								<form method="post" action="{% url 'account:register' %}" class="contact-form">
@@ -117,9 +117,10 @@
 			<nav>
 				<ul>
 					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="full-width.html">Blog</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
+					<li><a href="{% url 'about:about' %}">About</a></li>
+					<li><a href="{% url 'about:contact' %}">Contact</a></li>
+                    <li><a href="{% url 'account:login_page' %}">Login</a></li>
 				</ul>
 			</nav>
 		</div>

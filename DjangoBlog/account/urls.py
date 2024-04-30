@@ -3,7 +3,6 @@ from .views import signup_page, login_page, login_, register_, logout_, profile_
 
 app_name = 'account'
 
-
 urlpatterns = [
     path('login/', login_page, name='login_page'),
     path('register/', signup_page, name='signup_page'),

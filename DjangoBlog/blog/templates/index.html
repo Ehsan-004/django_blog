@@ -10,7 +10,7 @@
 
     <!-- css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{% static 'css/pace.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
@@ -40,12 +40,14 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="front page">front page</a></li>
-                            <li class="cl-effect-11"><a href="full-width.html" data-hover="blog">blog</a></li>
-                            <li class="cl-effect-11"><a href="about.html" data-hover="about">about</a></li>
-                            <li class="cl-effect-11"><a href="contact.html" data-hover="connect">connect</a></li>
-                            {% if user.is_authenticated %}
+                            <li class="cl-effect-11"><a href="{% url 'home' %}"><b>Home</b></a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
+
+                            {% if user and user.is_authenticated %}
                                 <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
+
                             {% else %}
                                 <li class="cl-effect-11"><a href="{% url 'account:login_page' %}" data-hover="login">login</a></li>
                             {% endif %}
@@ -72,97 +74,31 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8">
+
+                {% for article in article_data %}
                 <article class="post post-1">
                     <header class="entry-header">
                         <h1 class="entry-title">
-                            <a href="single.html">Django Introductory Tutorial on Blog Development: Preface</a>
+                            <a href="single.html">{{ article.title }}</a>
                         </h1>
                         <div class="entry-meta">
-                            <span class="post-category"><a href="#">Django Blog Tutorial</a></span>
+                            <span class="post-category"><a href="#">{{ article.author }}</a></span>
                             <span class="post-date"><a href="#"><time class="entry-date"
-                                                                      datetime="2012-11-09T23:15:57+00:00">2017 May 11</time></a></span>
-                            <span class="post-author"><a href="#">Dreamers</a></span>
-                            <span class="comments-link"><a href="#">4 comments</a></span>
+                                                                      datetime="{{ article.date }}">{{ article.date }}</time></a></span>
+                            <span class="post-author"><a href="#">{{ article.auther }}</a></span>
+                            <span class="comments-link"><a href="#">{{ article.comment }} comments</a></span>
                             <span class="views-count"><a href="#">588 reads</a></span>
                         </div>
                     </header>
                     <div class="entry-content clearfix">
-                        <p>Free, Chinese, zero-based, complete project, based on the latest versions of Django 1.10 and Python 3.5. Take you step by step to develop your own blog website from scratch, helping you master Django development skills as quickly as possible...</p>
+                        <p>{{ article.summary }} ...</p>
                         <div class="read-more cl-effect-14">
                             <a href="#" class="more-link">continue reading <span class="meta-nav">→</span></a>
                         </div>
                     </div>
                 </article>
+                {% endfor %}
 
-                <article class="post post-2">
-                    <header class="entry-header">
-                        <h1 class="entry-title">
-                            <a href="single.html">Django blog development introductory tutorial: Preface</a>
-                        </h1>
-                        <div class="entry-meta">
-                            <span class="post-category"><a href="#">Django blog tutorial</a></span>
-                            <span class="post-date"><a href="#"><time class="entry-date"
-                                                                      datetime="2012-11-09T23:15:57+00:00">2017年5月11日</time></a></span>
-
-                            <span class="post-author"><a href="#">Dreamers</a></span>
-                            <span class="comments-link"><a href="#">4 comments</a></span>
-                            <span class="views-count"><a href="#">588 reads</a></span>
-                        </div>
-                    </header>
-                    <div class="entry-content clearfix">
-                        <p>Free, Chinese, zero-based, complete project, based on the latest versions of Django 1.10 and Python 3.5. Take you step by step to develop your own blog website from scratch, helping you master Django as quickly as possible
-                             Development skills...</p>
-                        <div class="read-more cl-effect-14">
-                            <a href="#" class="more-link">continue reading <span class="meta-nav">→</span></a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post post-3">
-                    <header class="entry-header">
-                        <h1 class="entry-title">
-                            <a href="single.html">Django blog development introductory tutorial: Preface</a>
-                        </h1>
-                        <div class="entry-meta">
-                            <span class="post-category"><a href="#">Django blog tutorial</a></span>
-                            <span class="post-date"><a href="#"><time class="entry-date"
-                                                                      datetime="2012-11-09T23:15:57+00:00">2017年5月11日</time></a></span>
-                            <span class="post-author"><a href="#">Dreamers</a></span>
-                            <span class="comments-link"><a href="#">4 comments</a></span>
-                            <span class="views-count"><a href="#">588 reads</a></span>
-                        </div>
-                    </header>
-                    <div class="entry-content clearfix">
-                        <p>Free, Chinese, zero-based, complete project, based on the latest versions of Django 1.10 and Python 3.5. Take you step by step to develop your own blog website from scratch, helping you master Django as quickly as possible
-                             Development skills...</p>
-                        <div class="read-more cl-effect-14">
-                            <a href="#" class="more-link">continue reading <span class="meta-nav">→</span></a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post post-4">
-                    <header class="entry-header">
-                        <h1 class="entry-title">
-                            <a href="single.html">Django blog development introductory tutorial: Preface</a>
-                        </h1>
-                        <div class="entry-meta">
-                            <span class="post-category"><a href="#">Django blog tutorial</a></span>
-                            <span class="post-date"><a href="#"><time class="entry-date"
-                                                                      datetime="2012-11-09T23:15:57+00:00">2017年5月11日</time></a></span>
-                            <span class="post-author"><a href="#">Dreamers</a></span>
-                            <span class="comments-link"><a href="#">4 comments</a></span>
-                            <span class="views-count"><a href="#">588 reads</a></span>
-                        </div>
-                    </header>
-                    <div class="entry-content clearfix">
-                        <p>Free, Chinese, zero-based, complete project, based on the latest versions of Django 1.10 and Python 3.5. Take you step by step to develop your own blog website from scratch, helping you master Django as quickly as possible
-                             Development skills...</p>
-                        <div class="read-more cl-effect-14">
-                            <a href="#" class="more-link">continue reading <span class="meta-nav">→</span></a>
-                        </div>
-                    </div>
-                </article>
                 <!-- 简单分页效果
                 <div class="pagination-simple">
                     <a href="#">上一页</a>
@@ -265,7 +201,7 @@
                     </ul>
                 </div>
                 <div class="rss">
-                    <a href="{% static '' %}"><span class="ion-social-rss-outline"></span> RSS subscription</a>
+                    <a href="{% static 'index.html' %}"><span class="ion-social-rss-outline"></span> RSS subscription</a>
                 </div>
             </aside>
         </div>
@@ -289,11 +225,11 @@
     <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
     <nav>
         <ul>
-            <li><a href="{% url 'home' %}">front page</a></li>
-            <li><a href="full-width.html">blog</a></li>
-            <li><a href="about.html">about</a></li>
-            <li><a href="contact.html">connect</a></li>
-            <li><a href="{% url 'account:login' %}">login</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
+					<li><a href="{% url 'about:about' %}">About</a></li>
+					<li><a href="{% url 'about:contact' %}">Contact</a></li>
+                    <li><a href="{% url 'account:login_page' %}">Login</a></li>
         </ul>
     </nav>
 </div>

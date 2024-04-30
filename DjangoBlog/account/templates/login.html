@@ -42,9 +42,14 @@
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   								<ul class="nav navbar-nav navbar-right">
     								<li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
-    								<li class="cl-effect-11"><a href="full-width.html" data-hover="Blog">Blog</a></li>
-    								<li class="cl-effect-11"><a href="about.html" data-hover="About">About</a></li>
-    								<li class="cl-effect-11"><a href="contact.html" data-hover="Contact">Contact</a></li>
+    								<li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
+    								<li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
+    								<li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
+                                    {% if user and user.is_authenticated %}
+                                    <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
+                                    {% else %}
+                                        <li class="cl-effect-11"><a href="{% url 'account:login_page' %}" ><b>login</b></a></li>
+                                    {% endif %}
   								</ul>
 							</div><!-- /.navbar-collapse -->
 						</nav>
@@ -114,9 +119,10 @@
 			<nav>
 				<ul>
 					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="full-width.html">Blog</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
+					<li><a href="{% url 'about:about' %}">About</a></li>
+					<li><a href="{% url 'about:contact' %}">Contact</a></li>
+                    <li><a href="{% url 'account:login_page' %}">Login</a></li>
 				</ul>
 			</nav>
 		</div>
