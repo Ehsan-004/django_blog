@@ -30,7 +30,12 @@ def login_(req):
         password = req.POST.get('password', False)
         email = req.POST.get('email', False)
         if False in [username, password, email]:
-            return render(req, 'error_manager.html', {'text_error': "your name or email or password is wrong"})
+            context = {
+                'text_error': "your name or email or password is wrong",
+                'account': True,
+                'post_name': None,
+            }
+            return render(req, 'error_manager.html', context)
         else:
             user = authenticate(username=username, password=password, email=email)
             if User.objects.filter(username=username, email=email).exists():
@@ -38,9 +43,19 @@ def login_(req):
                     login(req, user)
                     return redirect(reverse('home'))
                 except AttributeError:
-                    return render(req, 'error_manager.html', {'text_error': "your password is wrong"})
+                    context = {
+                        'text_error': "your password is wrong",
+                        'account': True,
+                        'post_name': None,
+                    }
+                    return render(req, 'error_manager.html', context)
             else:
-                return render(req, 'error_manager.html', {'text_error': "we couldn't find you! please try again"})
+                context = {
+                    'text_error': "we couldn't find you! please try again",
+                    'account': True,
+                    'post_name': None,
+                }
+                return render(req, 'error_manager.html', context)
 
 
 def logout_(req):

@@ -75,7 +75,7 @@
             <main class="col-md-8">
                 <article class="post post-1">
                     <header class="entry-header">
-                        <h1 class="entry-title">{{ title }}</h1>
+                        <h1 class="entry-title">{{ title_of }}</h1>
                         <div class="entry-meta">
                             <span class="post-category"><a href="#">{{ category }}</a></span>
                             <span class="post-date"><a href="#"><time class="entry-date"
@@ -91,28 +91,38 @@
                 </article>
                 <section class="comment-area" id="comment-area">
                     <hr>
+                    <!-- ------------------------------- add comments ------------------------------- -->
                     <h3>comments</h3>
-                    <form action="#" method="post" class="comment-form">
+                    <form action="{% url 'blog:comment_register' %}" method="post" class="comment-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="title_of" value="{{ title_of }}">
                         <div class="row">
+                            {% if user and user.is_authenticated %}
+                                <input type="hidden" name="comment_author" value="{{ user.username }}">
+                                <input type="hidden" name="email" value="{{ user.email }}">
+                                <input type="hidden" name="password" value="{{ user.password }}">
+                            {% else %}
                             <div class="col-md-4">
-                                <label for="id_name">name: </label>
-                                <input type="text" id="id_name" name="name" required>
+                                <label for="id_name">username: </label>
+                                <input type="text" id="id_name" name="comment_author" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_email">Mail: </label>
                                 <input type="email" id="id_email" name="email" required>
                             </div>
                             <div class="col-md-4">
-                                <label for="id_url">Url: </label>
-                                <input type="text" id="id_url" name="url">
+                                <label for="password">Password: </label>
+                                <input type="password" id="password" name="password">
                             </div>
+                            {% endif %}
                             <div class="col-md-12">
                                 <label for="id_comment">comment: </label>
-                                <textarea name="comment" id="id_comment" required></textarea>
+                                    <textarea name="comment_content" id="id_comment" required></textarea>
                                 <button type="submit" class="comment-btn">publish</button>
                             </div>
-                        </div>    <!-- row -->
+                        </div>
                     </form>
+                    <!-- ---------------------------- end of add comments ---------------------------- -->
                     <div class="comment-list-panel">
                         <h3>Comments , <span>{{ comments_num }}</span> comments in total</h3>
                         <ul class="comment-list list-unstyled">
@@ -120,7 +130,7 @@
                             {% for comment in comment_list %}
                             <li class="comment-item">
                                 <span class="nickname">{{ comment.author }}</span>
-                                <!-- time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月12日 14:56</time>-->
+                                <time class="submit-date" datetime="{{ comment.date }}">{{ comment.date }}</time>
                                 <div class="text">
                                     {{ comment.content }}
                                 </div>
