@@ -76,24 +76,24 @@
                     <!------------------------- articles ------------------------>
 						{% for article in articles_data %}
                         <article class="post post-1">
-                    <header class="entry-header">
-                        <h1 class="entry-title">
-                            <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
-                        </h1>
-                        <div class="entry-meta">
-                            <span style="color: #0f140f" class="post-category">{{ article.author }}</span>
-                            <span class="post-date"><time style="color: #0f140f" class="entry-date"
-                                                          datetime="{{ article.date }}">{{ article.date }}</time></span>
-                            <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
-                            <!--<span style="color: #0f140f" class="comments-link"> comments</span>-->
-                                <!--<span class="views-count"><a href="#">588 reads</a></span> -->
-                        </div>
-                    </header>
-                    <div class="entry-content clearfix">
-                        <p>{{ article.summary }} ...</p>
-                        <div class="read-more cl-effect-14">
-                            <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
-                        </div>
+                            <header class="entry-header">
+                                <h1 class="entry-title">
+                                    <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
+                                </h1>
+                                <div class="entry-meta">
+                                    <span style="color: #0f140f" class="post-category">{{ article.author }}</span>
+                                    <span class="post-date"><time style="color: #0f140f" class="entry-date"
+                                                                  datetime="{{ article.date }}">{{ article.date }}</time></span>
+                                    <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
+                                    <!--<span style="color: #0f140f" class="comments-link"> comments</span>-->
+                                        <!--<span class="views-count"><a href="#">588 reads</a></span> -->
+                                </div>
+                            </header>
+                        <div class="entry-content clearfix">
+                            <p>{{ article.summary }} ...</p>
+                            <div class="read-more cl-effect-14">
+                                <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
+                            </div>
                     </div>
                 </article>
                 {% endfor %}

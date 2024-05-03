@@ -100,8 +100,10 @@
                             {% if user and user.is_authenticated %}
                                 <input type="hidden" name="comment_author" value="{{ user.username }}">
                                 <input type="hidden" name="email" value="{{ user.email }}">
-                                <input type="hidden" name="password" value="{{ user.password }}">
+                                <input type="hidden" name="situation" value="{{ True }}">
                             {% else %}
+
+                                <input type="hidden" name="situation" value="{{ False }}">
                             <div class="col-md-4">
                                 <label for="id_name">username: </label>
                                 <input type="text" id="id_name" name="comment_author" required>

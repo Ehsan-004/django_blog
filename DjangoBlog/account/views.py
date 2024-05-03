@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
@@ -38,7 +38,9 @@ def login_(req):
             return render(req, 'error_manager.html', context)
         else:
             user = authenticate(username=username, password=password, email=email)
-            if User.objects.filter(username=username, email=email).exists():
+            if user in User.objects.all():
+                # bellow code doesn't work sometimes
+                # if User.objects.filter(username=username, email=email).exists():
                 try:
                     login(req, user)
                     return redirect(reverse('home'))

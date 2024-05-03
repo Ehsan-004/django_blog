@@ -10,7 +10,7 @@
 
     <!-- css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+{#    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">#}
     <link rel="stylesheet" href="{% static 'css/pace.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
@@ -82,7 +82,7 @@
                             <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
                         </h1>
                         <div class="entry-meta">
-                            <span style="color: #0f140f" class="post-category">{{ article.author }}</span>
+                            <span style="color: #0f140f" class="post-category">{{ article.author.username }}</span>
                             <span class="post-date"><time style="color: #0f140f" class="entry-date"
                                                           datetime="{{ article.date }}">{{ article.date }}</time></span>
                             <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
