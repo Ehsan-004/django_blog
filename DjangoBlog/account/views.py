@@ -3,10 +3,6 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
 
-def login_page(request):
-    return render(request, 'login.html')
-
-
 def signup_page(request):
     return render(request, 'register.html')
 
@@ -21,10 +17,12 @@ def register_(req):
             return render(req, 'error_manager.html', {'text_error': "you have entered something wrong!"})
         else:
             user = User.objects.create_user(username=username, password=password, email=email)
-            return redirect('account:login_page')
+            return redirect('account:page')
 
 
 def login_(req):
+    if req.method == 'GET':
+        return render(req, 'login.html')
     if req.method == 'POST':
         username = req.POST.get('username', False)
         password = req.POST.get('password', False)

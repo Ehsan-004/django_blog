@@ -48,7 +48,7 @@
                                     {% if user and user.is_authenticated %}
                                     <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
                                     {% else %}
-                                        <li class="cl-effect-11"><a href="{% url 'account:login_page' %}" ><b>login</b></a></li>
+                                        <li class="cl-effect-11"><a href="{% url 'account:login' %}" ><b>login</b></a></li>
                                     {% endif %}
   								</ul>
 							</div><!-- /.navbar-collapse -->
@@ -122,7 +122,7 @@
 					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
 					<li><a href="{% url 'about:about' %}">About</a></li>
 					<li><a href="{% url 'about:contact' %}">Contact</a></li>
-                    <li><a href="{% url 'account:login_page' %}">Login</a></li>
+                    <li><a href="{% url 'account:login' %}">Login</a></li>
 				</ul>
 			</nav>
 		</div>

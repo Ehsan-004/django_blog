@@ -47,9 +47,8 @@
 
                             {% if user and user.is_authenticated %}
                                 <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
-
                             {% else %}
-                                <li class="cl-effect-11"><a href="{% url 'account:login_page' %}" data-hover="login">login</a></li>
+                                <li class="cl-effect-11"><a href="{% url 'account:login' %}" data-hover="login">login</a></li>
                             {% endif %}
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -123,20 +122,18 @@
                 </div>
             </main>
             <aside class="col-md-4">
+                <!---------------------------- latest articles -------------------------- -->
                 <div class="widget widget-recent-posts">
                     <h3 class="widget-title">latest articles</h3>
                     <ul>
+                        {% for article in latest_articles %}
                         <li>
-                            <a href="{% static '#' %}">Django blog development introductory tutorial: Preface</a>
+                            <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
                         </li>
-                        <li>
-                            <a href="{% static '#' %}">Django blog uses Markdown to automatically generate article directories</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">Deploy the Django blog</a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
+                <!----------------------- end of latest articles ----------------------- -->
                 <div class="widget widget-archives">
                     <h3 class="widget-title">Archive</h3>
                     <ul>
@@ -151,21 +148,19 @@
                         </li>
                     </ul>
                 </div>
-
+                <!-------------------------- classification part --------------------------- -->
                 <div class="widget widget-category">
                     <h3 class="widget-title">Classification</h3>
                     <ul>
+                        {% for key,value in categories_details.items %}
+                            <!--- each key is a category name and its value is number of posts --- -->
                         <li>
-                            <a href="{% static '#' %}">Django blog tutorial <span class="post-count">(13)</span></a>
+                            <a href="{% url 'blog:category_posts' key %}">{{ key }} <span class="post-count">({{ value }} articles)</span></a>
                         </li>
-                        <li>
-                            <a href="{% static '#' %}">Python tutorial <span class="post-count">(11)</span></a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">Django user authentication<span class="post-count">(8)</span></a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
+                <!----------------------- end of classification part ------------------------ -->
 
                 <div class="widget widget-tag-cloud">
                     <h3 class="widget-title">Tag Cloud</h3>
@@ -203,7 +198,7 @@
                     </ul>
                 </div>
                 <div class="rss">
-                    <a href="{% static 'index.html' %}"><span class="ion-social-rss-outline"></span> RSS subscription</a>
+                    <a href="{% url 'home' %}"><span class="ion-social-rss-outline"></span> RSS subscription</a>
                 </div>
             </aside>
         </div>
@@ -231,7 +226,7 @@
 					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
 					<li><a href="{% url 'about:about' %}">About</a></li>
 					<li><a href="{% url 'about:contact' %}">Contact</a></li>
-                    <li><a href="{% url 'account:login_page' %}">Login</a></li>
+                    <li><a href="{% url 'account:login' %}">Login</a></li>
         </ul>
     </nav>
 </div>
