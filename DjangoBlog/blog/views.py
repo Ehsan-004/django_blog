@@ -25,7 +25,7 @@ def index(req):
         categories = Category.objects.all()
 
         for category in categories:
-            category_name_count[category.name] =  Post.objects.filter(category__name=category.name).count()
+            category_name_count[category.name] = Post.objects.filter(category__name=category.name).count()
 
         context = {
             'article_data': article_data,
@@ -39,6 +39,14 @@ def index(req):
 
 def single_post(req, name: str):
     """By clicking on the name of articles in the pages, it renders the article by name."""
+
+    recent_articles = Post.recent_posts.all()  # this is a customized manager
+    category_name_count = {}
+    categories = Category.objects.all()
+
+    for category in categories:
+        category_name_count[category.name] = Post.objects.filter(category__name=category.name).count()
+
     articles = Post.objects.all()  # all articles are here
     for article in articles:
         if article.title == name:
@@ -61,6 +69,9 @@ def single_post(req, name: str):
                 'category': article.category,
                 'comments_num': comments_num,
                 'comment_list': comment_list,
+                'latest_articles': recent_articles,
+                'categories_details': category_name_count,
+                'categories': categories,
             }
             return render(req, 'single.html', context)
     return render(req, redirect(reverse('blog:all_posts')))

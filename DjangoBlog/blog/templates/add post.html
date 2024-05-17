@@ -1,153 +1,133 @@
+{% extends 'BaseBlog.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Black & White - login</title>
-
-		<!-- meta -->
-		<meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	    <!-- css -->
-		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-{#		<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">#}
-		<link rel="stylesheet" href="{% static 'css/pace.css' %}">
-	    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.snow.css" rel="stylesheet" />
-
-	    <!-- js -->
-{#        <script src="{% static 'regi.js' %}"></script>#}
-	    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-	    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-	    <script src="{% static 'js/pace.min.js' %}"></script>
-	    <script src="{% static 'js/modernizr.custom.js' %}"></script>
-        <script src="{% static 'js/script.js' %}"></script>
-
+<head>
+    {% block title %}new post{% endblock %}
+    {% block styles %}
         <style>
             .details{
                 display: flex;
                 justify-content: space-between;
                 width: 100%
             }
-            .col-md-6 {
-                width: 80%;
-            }
-            .col-md-offset-3 {
-                margin-left: 10%;
-            }
+            .col-md-6 { width: 80%; }
+            .col-md-offset-3 { margin-left: 10%; }
         </style>
-        {{ form.media }}
-	</head>
+        {{ form.media }} <!-- this is a form and because of quill editor I should use this tag in here -->
+    {% endblock %}
+</head>
 
-	<body id="page">
-		<div class="container">
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-4 col-sm-5 col-xs-8">
-						<div class="logo">
-							<h1><a href="{% url 'home' %}"><b>Black</b> & White</a></h1>
-						</div>
-					</div><!-- col-md-4 -->
-					<div class="col-md-8 col-sm-7 col-xs-4">
-						<nav class="main-nav" role="navigation">
-							<div class="navbar-header">
-  								<button type="button" id="trigger-overlay" class="navbar-toggle">
-    								<span class="ion-navicon"></span>
-  								</button>
-							</div>
+<body id="page">
+{% block content %}
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <h1><a href="{% url 'home' %}"><b>Black</b> & White</a></h1>
+                </div>
+            </div><!-- col-md-4 -->
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
 
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  								<ul class="nav navbar-nav navbar-right">
-                                    <li class="cl-effect-11"><a href=""><b>posting</b></a></li>
-    								<li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
-    								<li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
-    								<li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
-                                    <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
-                                    <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}">Logged in!</a></li>
-                                </ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-						<div id="header-search-box">
-							<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-							<div id="search-form" class="search-form">
-								<form role="search" method="get" id="searchform" action="#">
-                                    <label for="ind"></label>
-									<input type="search" placeholder="Search" id="ind" required>
-									<button type="submit"><span class="ion-ios-search-strong"></span></button>
-								</form>
-							</div>
-						</div>
-					</div><!-- col-md-8 -->
-				</div>
-			</header>
-		</div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="cl-effect-11"><a href=""><b>posting</b></a></li>
+                            <li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}">Logged in!</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+                <div id="header-search-box">
+                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    <div id="search-form" class="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <label for="ind"></label>
+                            <input type="search" placeholder="Search" id="ind" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- col-md-8 -->
+        </div>
+    </header>
+</div>
 
-		<div class="content-body">
-			<div class="container">
-				<div class="row">
-					<main class="col-md-12">
-						<h1 class="page-title">Adding New Post!</h1>
-						<article class="post">
-                            <div class="entry-content clearfix">
-                                <!-- === === === === === === === === === === === === === === === === === === -->
-                                <form action="{% url 'blog:register_post' %}" method="POST">
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="author" value="{{ user.username }}">
-                                            <!-- --------------------- text editor --------------------- -->
-                                            {{ form }}
-{#                                            <div class="details" id="editor" >#}
-{#                                                <p>write here ...</p>#}
-{#                                            </div>#}
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+                <h1 class="page-title">Adding New Post!</h1>
+                <article class="post">
+                    <div class="entry-content clearfix">
+                        <!-- === === === === === === === === === === === === === === === === === === -->
+                        <form action="{% url 'blog:register_post' %}" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="author" value="{{ user.username }}">
+                                    <!-- --------------------- text editor --------------------- -->
+                                    {{ form }}
+                                    {#                                            <div class="details" id="editor" >#}
+                                    {#                                                <p>write here ...</p>#}
+                                    {#                                            </div>#}
 
-                                            <!-- --------------------- text editor --------------------- -->
-                                            <br><br><br>
-                                            <button type="submit" class="btn-send btn-5 btn-5b ion-ios-paperplane"
-                                                    style="display: block; margin: auto" >
-                                                <span>Publish Post ...</span>
-                                            </button>
-                                            <br>
-                                        </div>
-                                    </div>	<!-- row -->
-                                </form>
-                                <!-- === === === === === === === === === === === === === === === === === === -->
-                            </div>
-						</article>
-					</main>
-				</div>
-			</div>
-		</div>
-		<footer id="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">© 2014 ThemeWagon.com</p>
-					</div>
-				</div>
-			</div>
-		</footer>
+                                    <!-- --------------------- text editor --------------------- -->
+                                    <br><br><br>
+                                    <button type="submit" class="btn-send btn-5 btn-5b ion-ios-paperplane"
+                                            style="display: block; margin: auto" >
+                                        <span>Publish Post ...</span>
+                                    </button>
+                                    <br>
+                                </div>
+                            </div>	<!-- row -->
+                        </form>
+                        <!-- === === === === === === === === === === === === === === === === === === -->
+                    </div>
+                </article>
+            </main>
+        </div>
+    </div>
+</div>
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">© 2014 ThemeWagon.com</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
-		<!-- Mobile Menu -->
-		<div class="overlay overlay-hugeinc">
-			<button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
-			<nav>
-				<ul>
-                    <li><a href="">Posting!</a></li>
-					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
-					<li><a href="{% url 'about:about' %}">About</a></li>
-					<li><a href="{% url 'about:contact' %}">Contact</a></li>
-                    <li><a href="{% url 'account:login' %}">Login</a></li>
-				</ul>
-			</nav>
-		</div>
+<!-- Mobile Menu -->
+<div class="overlay overlay-hugeinc">
+    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+    <nav>
+        <ul>
+            <li><a href="">Posting!</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
+            <li><a href="{% url 'about:about' %}">About</a></li>
+            <li><a href="{% url 'about:contact' %}">Contact</a></li>
+            <li><a href="{% url 'account:login' %}">Login</a></li>
+        </ul>
+    </nav>
+</div>
 
 {#        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.js"></script>#}
 {#        <!-- Initialize Quill editor -->#}
 {#        <script>#}
 {#          const quill = new Quill('#editor', {theme: 'snow'});#}
 {#        </script>#}
-
-	</body>
+{% endblock %}
+</body>
 </html>

@@ -1,238 +1,234 @@
+{% extends 'BaseBlog.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Black & White</title>
-
-    <!-- meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- css -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-{#    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">#}
-    <link rel="stylesheet" href="{% static 'css/pace.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-
-    <!-- js -->
-    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/pace.min.js' %}"></script>
-    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    {% block title %}Home{% endblock %}
 </head>
 
 <body>
-<div class="container">
-    <header id="site-header">
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-8">
-                <div class="logo">
-                    <h1><a href="{% url 'home' %}"><b>Black</b> & White</a></h1>
-                </div>
-            </div><!-- col-md-4 -->
-            <div class="col-md-8 col-sm-7 col-xs-4">
-                <nav class="main-nav" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" id="trigger-overlay" class="navbar-toggle">
-                            <span class="ion-navicon"></span>
-                        </button>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="cl-effect-11"><a href="{% url 'home' %}"><b>Home</b></a></li>
-                            <li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
-                            <li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
-                            <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
-
-                            {% if user and user.is_authenticated %}
-                                <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
-                            {% else %}
-                                <li class="cl-effect-11"><a href="{% url 'account:login' %}" data-hover="login">login</a></li>
-                            {% endif %}
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-                <div id="header-search-box">
-                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-                    <div id="search-form" class="search-form">
-                        <form role="search" method="get" id="searchform" action="#">
-                            <input type="search" placeholder="search" required>
-                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
-                        </form>
-                    </div>
-                </div>
-            </div><!-- col-md-8 -->
-        </div>
-    </header>
-</div>
-<div class="copyrights">Collect from <a href="http://www.cssmoban.com/">Web Template</a></div>
-<div class="copyrights">Modified by <a href="http://zmrenwu.com"></a></div>
-
-<div class="content-body">
+{% block content %}
     <div class="container">
-        <div class="row">
-            <main class="col-md-8">
-            <!-----------------------articles-------------------------->
-                {% for article in article_data %}
-                <article class="post post-1">
-                    <header class="entry-header">
-                        <h1 class="entry-title">
-                            <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
-                        </h1>
-                        <div class="entry-meta">
-                            <span style="color: #0f140f" class="post-category">{{ article.author.username }}</span>
-                            <span class="post-date"><time style="color: #0f140f" class="entry-date"
-                                                          datetime="{{ article.date }}">{{ article.date }}</time></span>
-                            <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
-                            <!--<span style="color: #0f140f" class="comments-link"> comments</span>-->
-                                <!--<span class="views-count"><a href="#">588 reads</a></span> -->
+        <header id="site-header">
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-8">
+                    <div class="logo">
+                        <h1><a href="{% url 'home' %}"><b>Black</b> & White</a></h1>
+                    </div>
+                </div><!-- col-md-4 -->
+                <div class="col-md-8 col-sm-7 col-xs-4">
+                    <nav class="main-nav" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" id="trigger-overlay" class="navbar-toggle">
+                                <span class="ion-navicon"></span>
+                            </button>
                         </div>
-                    </header>
-                    <div class="entry-content clearfix">
-                        <p>{{ article.summary }} ...</p>
-                        <div class="read-more cl-effect-14">
-                            <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <!-- these are what is shown in the head of site -->
+                                <!-- the master template is BaseBlog.html that is extended in the top of page -->
+
+                                <li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home"><b>Home</b></a></li>
+
+                                <li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="blog">blog</a></li>
+
+                                <li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
+
+                                <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
+
+                                {% if user and user.is_authenticated %}
+                                    <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
+                                {% else %}
+                                    <li class="cl-effect-11"><a href="{% url 'account:login' %}" data-hover="login">login</a></li>
+                                {% endif %}
+
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                    <div id="header-search-box">
+                        <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                        <div id="search-form" class="search-form">
+                            <form role="search" method="get" id="searchform" action="#">
+                                <input type="search" placeholder="search" required>
+                                <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                            </form>
                         </div>
                     </div>
-                </article>
-                {% endfor %}
-            <!-----------------------end of articles-------------------------->
-                <!-- 简单分页效果
-                <div class="pagination-simple">
-                    <a href="#">上一页</a>
-                    <span class="current">第 6 页 / 共 11 页</span>
-                    <a href="#">下一页</a>
-                </div>
-                -->
-                <div class="pagination">
-                    <ul>
-                        <!--
-                        <li><a href="">1</a></li>
-                        <li><a href="">...</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li class="current"><a href="">6</a></li>
-                        <li><a href="">7</a></li>
-                        <li><a href="">8</a></li>
-                        <li><a href="">...</a></li>
-                        <li><a href="">11</a></li>
-                        -->
-                    </ul>
-                </div>
-            </main>
-            <aside class="col-md-4">
-                <!---------------------------- latest articles -------------------------- -->
-                <div class="widget widget-recent-posts">
-                    <h3 class="widget-title">latest articles</h3>
-                    <ul>
-                        {% for article in latest_articles %}
-                        <li>
-                            <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!----------------------- end of latest articles ----------------------- -->
-                <div class="widget widget-archives">
-                    <h3 class="widget-title">Archive</h3>
-                    <ul>
-                        <li>
-                            <a href="{% static '#' %}">2024 April 25</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">2024 April 25</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">2024 April 25</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-------------------------- classification part --------------------------- -->
-                <div class="widget widget-category">
-                    <h3 class="widget-title">Classification</h3>
-                    <ul>
-                        {% for key,value in categories_details.items %}
-                            <!--- each key is a category name and its value is number of posts --- -->
-                        <li>
-                            <a href="{% url 'blog:category_posts' key %}">{{ key }} <span class="post-count">({{ value }} articles)</span></a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <!----------------------- end of classification part ------------------------ -->
-
-                <div class="widget widget-tag-cloud">
-                    <h3 class="widget-title">Tag Cloud</h3>
-                    <ul>
-                        <li>
-                            <a href="{% static '#' %}">Django</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">Python</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">Java</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">notes</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">document</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">AngularJS</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">CSS</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">JavaScript</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">Snippet</a>
-                        </li>
-                        <li>
-                            <a href="{% static '#' %}">jQuery</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="rss">
-                    <a href="{% url 'home' %}"><span class="ion-social-rss-outline"></span> RSS subscription</a>
-                </div>
-            </aside>
-        </div>
+                </div><!-- col-md-8 -->
+            </div>
+        </header>
     </div>
-</div>
-<footer id="site-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="copyright">© 2024 - April 25<a href="http://www.cssmoban.com"
-                                                        target="_blank" title="Template home">Template home</a>
-                    <a href="http://zmrenwu.com" title="Web template" target="_blank">Blog Of A Dream Chaser</a>
-                </p>
+    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/">Web Template</a></div>
+    <div class="copyrights">Modified by <a href="http://zmrenwu.com"></a></div>
+
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8">
+                    <!-----------------------articles-------------------------->
+                    {% for article in article_data %}
+                        <article class="post post-1">
+                            <header class="entry-header">
+                                <h1 class="entry-title">
+                                    <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
+                                </h1>
+                                <div class="entry-meta">
+                                    <span style="color: #0f140f" class="post-category">{{ article.author.username }}</span>
+                                    <span class="post-date"><time style="color: #0f140f" class="entry-date"
+                                                                  datetime="{{ article.date }}">{{ article.date }}</time></span>
+                                    <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
+                                    <!--<span style="color: #0f140f" class="comments-link"> comments</span>-->
+                                    <!--<span class="views-count"><a href="#">588 reads</a></span> -->
+                                </div>
+                            </header>
+                            <div class="entry-content clearfix">
+                                <p>{{ article.summary }} ...</p>
+                                <div class="read-more cl-effect-14">
+                                    <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                    <!-----------------------end of articles-------------------------->
+                    <!-- 简单分页效果
+                    <div class="pagination-simple">
+                        <a href="#">上一页</a>
+                        <span class="current">第 6 页 / 共 11 页</span>
+                        <a href="#">下一页</a>
+                    </div>
+                    -->
+                    <div class="pagination">
+                        <ul>
+                            <!--
+                            <li><a href="">1</a></li>
+                            <li><a href="">...</a></li>
+                            <li><a href="">4</a></li>
+                            <li><a href="">5</a></li>
+                            <li class="current"><a href="">6</a></li>
+                            <li><a href="">7</a></li>
+                            <li><a href="">8</a></li>
+                            <li><a href="">...</a></li>
+                            <li><a href="">11</a></li>
+                            -->
+                        </ul>
+                    </div>
+                </main>
+                <aside class="col-md-4">
+                    <!---------------------------- latest articles -------------------------- -->
+                    <div class="widget widget-recent-posts">
+                        <h3 class="widget-title">latest articles</h3>
+                        <ul>
+                            {% for article in latest_articles %}
+                                <li>
+                                    <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!----------------------- end of latest articles ----------------------- -->
+
+                    <!-------------------------- categories part --------------------------- -->
+                    <div class="widget widget-category">
+                        <h3 class="widget-title">Categories</h3>
+                        <ul>
+                            {% for key,value in categories_details.items %}
+                                <!--- each key is a category name and its value is number of posts --- -->
+                                <li>
+                                    <a href="{% url 'blog:category_posts' key %}">{{ key }} <span class="post-count">({{ value }} articles)</span></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!----------------------- end of categories part ------------------------ -->
+                    <div class="widget widget-archives">
+                        <h3 class="widget-title">Archive</h3>
+                        <ul>
+                            <li>
+                                <a href="{% static '#' %}">2024 April 25</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">2024 April 25</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">2024 April 25</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="widget widget-tag-cloud">
+                        <h3 class="widget-title">Tag Cloud</h3>
+                        <ul>
+                            <li>
+                                <a href="{% static '#' %}">Django</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">Python</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">Java</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">notes</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">document</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">AngularJS</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">CSS</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">JavaScript</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">Snippet</a>
+                            </li>
+                            <li>
+                                <a href="{% static '#' %}">jQuery</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="rss">
+                        <a href="{% url 'home' %}"><span class="ion-social-rss-outline"></span> RSS subscription</a>
+                    </div>
+                </aside>
             </div>
         </div>
     </div>
-</footer>
+    <footer id="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="copyright">© 2024 - April 25<a href="http://www.cssmoban.com"
+                                                             target="_blank" title="Template home">Template home</a>
+                        <a href="http://zmrenwu.com" title="Web template" target="_blank">Blog Of A Dream Chaser</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-<!-- Mobile Menu -->
-<div class="overlay overlay-hugeinc">
-    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
-					<li><a href="{% url 'about:about' %}">About</a></li>
-					<li><a href="{% url 'about:contact' %}">Contact</a></li>
-                    <li><a href="{% url 'account:login' %}">Login</a></li>
-        </ul>
-    </nav>
-</div>
+    <!-- Mobile Menu -->
+    <div class="overlay overlay-hugeinc">
+        <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
+                <li><a href="{% url 'about:about' %}">About</a></li>
+                <li><a href="{% url 'about:contact' %}">Contact</a></li>
+                <li><a href="{% url 'account:login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </div>
 
-<script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
+{% endblock %}
 </body>
 </html>
 

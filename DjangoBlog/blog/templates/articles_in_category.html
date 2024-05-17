@@ -1,87 +1,72 @@
+{% extends 'BaseBlog.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Black &amp; White</title>
+<head>
+    {% block title %}{{ category_name }}{% endblock %}
+</head>
 
-		<!-- meta -->
-		<meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+{% block content %}
+    <div class="container">
+        <header id="site-header">
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-8">
+                    <div class="logo">
+                        <h1><a href="{% url 'home' %}"><b>Black</b> &amp; White</a></h1>
+                    </div>
+                </div><!-- col-md-4 -->
+                <div class="col-md-8 col-sm-7 col-xs-4">
+                    <nav class="main-nav" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" id="trigger-overlay" class="navbar-toggle">
+                                <span class="ion-navicon"></span>
+                            </button>
+                        </div>
 
-	    <!-- css -->
-		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
-		<link rel="stylesheet" href="{% static 'css/pace.css' %}">
-	    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
+                                <li class="cl-effect-11"><a href="{% url 'blog:category_posts' category_name %}" ><b>{{ category_name }}</b></a></li>
+                                <li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
+                                <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
 
-	    <!-- js -->
-        <script src="{% static 'regi.js' %}"></script>
-	    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-	    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-	    <script src="{% static 'js/pace.min.js' %}"></script>
-	    <script src="{% static 'js/modernizr.custom.js' %}"></script>
-	</head>
+                                {% if user and user.is_authenticated %}
+                                    <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
+                                {% else %}
+                                    <li class="cl-effect-11"><a href="{% url 'account:login' %}" data-hover="login">login</a></li>
+                                {% endif %}
 
-	<body>
-		<div class="container">	
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-4 col-sm-5 col-xs-8">
-						<div class="logo">
-							<h1><a href="{% url 'home' %}"><b>Black</b> &amp; White</a></h1>
-						</div>
-					</div><!-- col-md-4 -->
-					<div class="col-md-8 col-sm-7 col-xs-4">
-						<nav class="main-nav" role="navigation">
-							<div class="navbar-header">
-  								<button type="button" id="trigger-overlay" class="navbar-toggle">
-    								<span class="ion-navicon"></span>
-  								</button>
-							</div>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                    <div id="header-search-box">
+                        <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                        <div id="search-form" class="search-form">
+                            <form role="search" method="get" id="searchform" action="#">
+                                <input type="search" placeholder="Search" required>
+                                <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- col-md-8 -->
+            </div>
+        </header>
+    </div>
 
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  								<ul class="nav navbar-nav navbar-right">
-    								<li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
-    								<li class="cl-effect-11"><a href="{% url 'blog:category_posts' category_name %}" ><b>{{ category_name }}</b></a></li>
-    								<li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
-    								<li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
-
-                                    {% if user and user.is_authenticated %}
-                                        <li class="cl-effect-11"><a href="{% url 'account:profile_page' %}" data-hover="{{ user.username }}">{{ user.username }}</a></li>
-                                    {% else %}
-                                        <li class="cl-effect-11"><a href="{% url 'account:login' %}" data-hover="login">login</a></li>
-                                    {% endif %}
-
-  								</ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-						<div id="header-search-box">
-							<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-							<div id="search-form" class="search-form">
-								<form role="search" method="get" id="searchform" action="#">
-									<input type="search" placeholder="Search" required>
-									<button type="submit"><span class="ion-ios-search-strong"></span></button>
-								</form>				
-							</div>
-						</div>
-					</div><!-- col-md-8 -->
-				</div>
-			</header>
-		</div>
-
-		<div class="content-body">
-			<div class="container">
-				<div class="row">
-					<main class="col-md-12">
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-12">
                     <!------------------------- articles ------------------------>
-                        <article class="post post-1">
-                            <header class="entry-header">
+                    <article class="post post-1">
+                        <header class="entry-header">
 
-                                <h1 class="entry-title" style="font-size: xx-large">category : 
-                                    <a href="{% url 'blog:category_posts' category_name %}">{{ category_name }}</a>
-                                </h1>
-                                <br><br><br>
-                                {% for article in articles_data %}
+                            <h1 class="entry-title" style="font-size: xx-large">category :
+                                <a href="{% url 'blog:category_posts' category_name %}">{{ category_name }}</a>
+                            </h1>
+                            <br><br><br>
+                            {% for article in articles_data %}
 
                                 <h1 class="entry-title">
                                     <a href="{% url 'blog:single_post' article.title %}">{{ article.title }}</a>
@@ -92,47 +77,48 @@
                                                                   datetime="{{ article.date }}">{{ article.date }}</time></span>
                                     <span style="color: #0f140f" class="post-author">{{ article.auther }}</span>
                                     <!--<span style="color: #0f140f" class="comments-link"> comments</span>-->
-                                        <!--<span class="views-count"><a href="#">588 reads</a></span> -->
+                                    <!--<span class="views-count"><a href="#">588 reads</a></span> -->
                                 </div>
-                            </header>
-                        <div class="entry-content clearfix">
-                            <p>{{ article.summary }} ...</p>
-                            <div class="read-more cl-effect-14">
-                                <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
-                            </div>
-                        </div>
-                    </article>
-                    {% endfor %}
+                                </header>
+                                <div class="entry-content clearfix">
+                                    <p>{{ article.summary }} ...</p>
+                                    <div class="read-more cl-effect-14">
+                                        <a href="{% url 'blog:single_post' article.title %}" class="more-link">continue reading <span class="meta-nav">→</span></a>
+                                    </div>
+                                </div>
+                                </article>
+                            {% endfor %}
                     <!-----------------------end articles ----------------------->
-					</main>
-				</div>
-			</div>
-		</div>
-		<footer id="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">&copy; 2014 ThemeWagon.com</p>
-					</div>
-				</div>
-			</div>
-		</footer>
+                </main>
+            </div>
+        </div>
+    </div>
+    <footer id="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="copyright">&copy; 2014 ThemeWagon.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-		<!-- Mobile Menu -->
-		<div class="overlay overlay-hugeinc">
-			<button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
-			<nav>
-				<ul>
-					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
-					<li><a href="{% url 'about:about' %}">About</a></li>
-					<li><a href="{% url 'about:contact' %}">Contact</a></li>
-                    <li><a href="{% url 'account:login' %}">Login</a></li>
-				</ul>
-			</nav>
-		</div>
+    <!-- Mobile Menu -->
+    <div class="overlay overlay-hugeinc">
+        <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'blog:all_posts' %}">Blog</a></li>
+                <li><a href="{% url 'about:about' %}">About</a></li>
+                <li><a href="{% url 'about:contact' %}">Contact</a></li>
+                <li><a href="{% url 'account:login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </div>
 
-		<script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
-	</body>
+    </body>
+{% endblock %}
 </html>
