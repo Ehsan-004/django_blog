@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% block title %}{{ category_name }}{% endblock %}
+    {% block title %}{{ user_name }}{% endblock %}
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="cl-effect-11"><a href="{% url 'home' %}" data-hover="Home">Home</a></li>
-                                <li class="cl-effect-11"><a href="{% url 'blog:category_posts' category_name %}" ><b>{{ category_name }}</b></a></li>
+                                <li class="cl-effect-11"><a href="{% url 'blog:all_posts' %}" data-hover="Blog" ><b>Blog</b></a></li>
                                 <li class="cl-effect-11"><a href="{% url 'about:about' %}" data-hover="About">About</a></li>
                                 <li class="cl-effect-11"><a href="{% url 'about:contact' %}" data-hover="Contact">Contact</a></li>
 
@@ -62,8 +62,8 @@
                     <article class="post post-1">
                         <header class="entry-header">
 
-                            <h1 class="entry-title" style="font-size: xx-large">category :
-                                <a href="{% url 'blog:category_posts' category_name %}">{{ category_name }}</a>
+                            <h1 class="entry-title" style="font-size: xx-large">Posts for :
+                                <a href="{% url 'account:profile_page' %}">{{ user_name }}</a>
                             </h1>
                             <br><br><br>
                             {% for article in articles_data %}
@@ -78,8 +78,8 @@
                                         </a>
                                     </span>
                                     <span class="post-date">
-                                        <time style="color: #0f140f" class="entry-date"datetime="{{ article.date }}">
-                                            {{ article.date }}
+                                        <time style="color: #0f140f" class="entry-date"
+                                              datetime="{{ article.date }}">{{ article.date }}
                                         </time>
                                     </span>
                                     <span style="color: #0f140f" class="post-author">

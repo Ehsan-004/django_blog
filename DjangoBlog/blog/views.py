@@ -12,12 +12,14 @@ def index(req):
     if req.method == 'GET':
         article_data = []
         articles = Post.objects.all()
+
         for article in articles:
             article_data.append({
                 'title': article.title,
                 'summary': article.summary,
-                'author': article.author,
+                'author': article.author.username,
                 'date': article.date,
+                'category': article.category.name,
             })
             # now we have a list of json dictionaries
         recent_articles = Post.recent_posts.all()  # this is a customized manager
@@ -66,7 +68,7 @@ def single_post(req, name: str):
                 'date': article.date,
                 'content': article.content,
                 'comments': article.comments,
-                'category': article.category,
+                'category': article.category.name,
                 'comments_num': comments_num,
                 'comment_list': comment_list,
                 'latest_articles': recent_articles,
@@ -86,8 +88,9 @@ def all_posts(req):
             articles.append({
                 'title': article.title,
                 'summary': article.summary,
-                'author': article.author,
+                'author': article.author.username,
                 'date': article.date,
+                'category': article.category.name,
             })
         return render(req, 'articles_page.html', {'articles_data': articles_data})
 
@@ -202,14 +205,31 @@ def category_posts(req, category_name: str):
         articles_data.append({
             'title': post.title,
             'summary': post.summary,
-            'author': post.author,
+            'author': post.author.username,
             'date': post.date,
+            'category': post.category.name,
         })
     context = {
         'category_name': category_name,
         'articles_data': articles_data,
                }
-    return  render(req, 'articles_in_category.html', context)
+    return render(req, 'articles_in_category.html', context)
 
 
-
+def user_posts(req, user_name: str):
+    articles_data = []
+    articles = Post.objects.filter(author__username=user_name)
+    for article in articles:
+        articles_data.append({
+            'user_name': user_name,
+            'title': article.title,
+            'summary': article.summary,
+            'author': article.author.username,
+            'date': article.date,
+            'category': article.category.name,
+        })
+    context = {
+        'articles_data': articles_data,
+        'user_name': user_name,
+    }
+    return render(req, 'articles_for_user.html', context)

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import single_post, all_posts, comment_register, post_register, category_posts
+from .views import single_post, all_posts, comment_register, post_register, category_posts, user_posts
 
 
 app_name = 'blog'
@@ -11,4 +11,5 @@ urlpatterns = [
     path('new-comment/', comment_register, name='comment_register'),  # to leave new comment
     path('new-post/',  post_register, name='register_post'),  # goes to the adding new post page
     path('catogory/<str:category_name>/', category_posts, name='category_posts'),
+    path('author/<user_name>/', user_posts, name='user_posts'),
 ]
